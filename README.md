@@ -60,6 +60,28 @@ or run this command:
 	$ cd RAILS_ROOT
 	$ rails plugin install http://github.com/kuroda/mail-iso-2022-jp.git
 
+### Example ###
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from    '山田太郎 <taro@example.com>'
+      to      '佐藤花子 <hanako@example.com>'
+      subject '日本語件名'
+      body    '日本語本文'
+    end
+
+	mail['from'].encoded
+	  => "From: =?ISO-2022-JP?B?GyRCOzNFREJATzobKEI=?= <taro@example.com>\r\n"
+	mail['to'].encoded
+	  => "To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <hanako@example.com>\r\n"
+	mail.subject
+	 => "=?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?="
+	NKF.nkf('-mw', mail.subject)
+	 => "日本語件名"
+	mail.body.encoded
+	 => "\e$BF|K\\8lK\\J8\e(B"
+	NKF.nkf('-w', mail.body.encoded)
+	 => "日本語本文"
+
 ### Example for ActionMailer ###
 
 	class UserMailer < ActionMailer::Base
@@ -71,19 +93,6 @@ or run this command:
 	  end
 	end
 
-	mail = UserMailer.notice
-	mail['from'].encoded
-	  => "From: =?ISO-2022-JP?B?GyRCOzNFREJATzobKEI=?= <bar@example.com>\r\n"
-	mail['to'].encoded
-	  => "To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <foo@example.com>\r\n"
-	mail.subject
-	 => "=?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?="
-	NKF.nkf('-mw', mail.subject)
-	 => "日本語件名"
-	mail.body.encoded
-	 => "\e$BF|K\\8lK\\J8\e(B"
-	NKF.nkf('-w', mail.body.encoded)
-	 => "日本語本文"
 
 
 License
