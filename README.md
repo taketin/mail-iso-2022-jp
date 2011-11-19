@@ -98,9 +98,9 @@ or run this command:
 License
 -------
 
-(en) "mail-iso-2022-jp" released under the MIT license (MIT-LICENSE.txt)
+(en) `mail-iso-2022-jp` is distributed under the MIT license. ([MIT-LICENSE](https://github.com/kuroda/mail-iso-2022-jp/blob/master/MIT-LICENSE))
 
-(ja) "mail-iso-2022-jp" は MITライセンスで配布しています。 (MIT-LICENSE.txt)
+(ja) `mail-iso-2022-jp` はMITライセンスで配布されています。 ([MIT-LICENSE](https://github.com/kuroda/mail-iso-2022-jp/blob/master/MIT-LICENSE))
 
 
 Special thanks
