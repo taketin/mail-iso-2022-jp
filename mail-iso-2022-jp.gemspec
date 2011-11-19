@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = "mail-iso-2022-jp"
-  s.version     = "1.0.1"
+  s.version     = "1.0.2"
   s.authors     = ["Kohei MATSUHITA", "Tsutomu KURODA"]
   s.email       = "hermes@oiax.jp"
-  s.homepage    = "http://github.com/kuroda/mail_ja"
+  s.homepage    = "http://github.com/kuroda/mail-iso-2022-jp"
   s.description = "A patch that provides 'mail' gem with iso-2022-jp conversion capability."
   s.summary     = "A patch that provides 'mail' gem with iso-2022-jp conversion capability."
 
