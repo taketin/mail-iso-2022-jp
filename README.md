@@ -58,7 +58,7 @@ or run this command:
 ### Install as a Rails plugin ###
 
 	$ cd RAILS_ROOT
-	$ rails plugin install http://github.com/kuroda/mail-iso-2022-jp.git
+	$ rails plugin install git://github.com/kuroda/mail-iso-2022-jp.git
 
 ### Example ###
 
