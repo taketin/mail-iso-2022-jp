@@ -46,4 +46,8 @@ module Mail
   class ToField < StructuredField
     include FieldWithIso2022JpEncoding
   end
+
+  class CcField < StructuredField
+    include FieldWithIso2022JpEncoding
+  end
 end

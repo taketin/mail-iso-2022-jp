@@ -20,17 +20,17 @@ Feature
 
 * (en)
 
-    If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `To`, and `Subject` headers
+    If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `To`, `Cc`, and `Subject` headers
     and the text of body will be automatically converted to `ISO-2022-JP` by `NKF` module.
     
     When the `charset` header has other values, this patch has no effect.
 
 * (ja)
 
-    chasetヘッダの値が `ISO-2022-JP` である場合、送信者(From)、宛先(To)、件名(Subject)の各ヘッダの値および
+    chasetヘッダの値が `ISO-2022-JP` である場合、送信者(From)、宛先(To)、Cc、件名(Subject)の各ヘッダの値および
     本文(Body)が`NKF`モジュールによって自動的に `ISO-2022-JP` に変換されます。
     
-    charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチは何の効果もありません。
+    charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチには何の効果もありません。
 
 
 Requirements
@@ -68,6 +68,7 @@ or run this command:
     mail = Mail.new(:charset => 'ISO-2022-JP') do
       from    '山田太郎 <taro@example.com>'
       to      '佐藤花子 <hanako@example.com>'
+      cc      '事務局 <info@example.com>'
       subject '日本語件名'
       body    '日本語本文'
     end
@@ -88,7 +89,10 @@ or run this command:
 ### Usage with ActionMailer ###
 
 	class UserMailer < ActionMailer::Base
-	  default :from => "山田太郎 <bar@example.com>", :charset => 'ISO-2022-JP'
+	  default  :charset => 'ISO-2022-JP',
+	    :from => "山田太郎 <bar@example.com>",
+	    :cc => '事務局 <info@example.com>'
+
 	  def notice
 	    mail(:to => '佐藤花子 <foo@example.com>', :subject => '日本語件名') do |format|
 	      format.text { render :inline => '日本語本文' }
