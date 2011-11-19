@@ -1,4 +1,4 @@
 require 'rubygems'
 require 'nkf'
 require 'mail'
-require 'mail_ja'
+require 'mail-iso-2022-jp'
