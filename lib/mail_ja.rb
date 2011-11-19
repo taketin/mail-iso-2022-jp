@@ -10,10 +10,19 @@ module Mail
     alias_method :process_body_raw, :process_body_raw_with_iso_2022_jp_encoding
   end
   
-  module Iso2022JpDecoder
+  module FieldWithIso2022JpEncoding
     def self.included(base)
+      base.send :alias_method, :initialize_without_iso_2022_jp_encoding, :initialize
+      base.send :alias_method, :initialize, :initialize_with_iso_2022_jp_encoding
       base.send :alias_method, :do_decode_without_iso_2022_jp_encoding, :do_decode
       base.send :alias_method, :do_decode, :do_decode_with_iso_2022_jp_encoding
+    end
+    
+    def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
+      if charset.to_s.downcase == 'iso-2022-jp'
+        value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
+      end
+      initialize_without_iso_2022_jp_encoding(value, charset)
     end
     
     private
@@ -27,41 +36,14 @@ module Mail
   end
 
   class SubjectField < UnstructuredField
-    include Iso2022JpDecoder
-    
-    def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
-      if charset.to_s.downcase == 'iso-2022-jp'
-        value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
-      end
-      initialize_without_iso_2022_jp_encoding(value, charset)
-    end
-    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
-    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
+    include FieldWithIso2022JpEncoding
   end
 
   class FromField < StructuredField
-    include Iso2022JpDecoder
-    
-    def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
-      if charset.to_s.downcase == 'iso-2022-jp'
-        value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
-      end
-      initialize_without_iso_2022_jp_encoding(value, charset)
-    end
-    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
-    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
+    include FieldWithIso2022JpEncoding
   end
 
   class ToField < StructuredField
-    include Iso2022JpDecoder
-    
-    def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
-      if charset.to_s.downcase == 'iso-2022-jp'
-        value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
-      end
-      initialize_without_iso_2022_jp_encoding(value, charset)
-    end
-    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
-    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
+    include FieldWithIso2022JpEncoding
   end
 end
