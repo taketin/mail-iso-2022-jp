@@ -20,15 +20,17 @@ Feature
 
 * (en)
 
-    If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `To`, `Cc`, and `Subject` headers
+    If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `Sender`, `To`, `Cc`,
+    `Reply-To`, `Subject`, `Resent-From`, `Resent-Sender`, `Resent-To` and `Resent-Cc` headers
     and the text of body will be automatically converted to `ISO-2022-JP` by `NKF` module.
     
     When the `charset` header has other values, this patch has no effect.
 
 * (ja)
 
-    chasetヘッダの値が `ISO-2022-JP` である場合、送信者(From)、宛先(To)、Cc、件名(Subject)の各ヘッダの値および
-    本文(Body)が`NKF`モジュールによって自動的に `ISO-2022-JP` に変換されます。
+    chasetヘッダの値が `ISO-2022-JP` である場合、差出人(From)、Sender、宛先(To)、Cc、Reply-To、件名(Subject)、
+    Resent-From、Resent-Sender、Resent-To、Resent-Cc の各ヘッダの値および本文(Body)が
+    `NKF` モジュールによって自動的に `ISO-2022-JP` に変換されます。
     
     charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチには何の効果もありません。
 

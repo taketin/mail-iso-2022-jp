@@ -1,6 +1,10 @@
+## 1.0.2 (2011-11-19)
+
+* convert `Sender`, `Reply-To`, `Resent-From`, `Resent-Sender`, `Resent-To`, `Resent-Cc` header values
+
 ## 1.0.1 (2011-11-19)
 
-* convert `cc` header value to iso-2022-jp encoding
+* convert `Cc` header value to iso-2022-jp encoding
 
 ## 1.0.0 (2011-11-19)
 
