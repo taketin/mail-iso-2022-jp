@@ -33,12 +33,15 @@ Feature
     charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチは何の効果もありません。
 
 
-Environments
+Requirements
 ------------
 
-### Requirements ###
+### Ruby ###
 
-* `ruby` 1.8.7 or higher
+* 1.8.7 or higher
+
+### Gems ###
+
 * `mail` 2.2.5 or higher
 
 
@@ -60,7 +63,7 @@ or run this command:
 	$ cd RAILS_ROOT
 	$ rails plugin install git://github.com/kuroda/mail-iso-2022-jp.git
 
-### Example ###
+### Usage ###
 
     mail = Mail.new(:charset => 'ISO-2022-JP') do
       from    '山田太郎 <taro@example.com>'
@@ -82,7 +85,7 @@ or run this command:
 	NKF.nkf('-w', mail.body.encoded)
 	 => "日本語本文"
 
-### Example for ActionMailer ###
+### Usage with ActionMailer ###
 
 	class UserMailer < ActionMailer::Base
 	  default :from => "山田太郎 <bar@example.com>", :charset => 'ISO-2022-JP'
@@ -92,7 +95,6 @@ or run this command:
 	    end
 	  end
 	end
-
 
 
 License
