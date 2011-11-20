@@ -1,12 +1,5 @@
 # coding:utf-8
 
-class String
-  def blank?
-    self.force_encoding('ascii-8bit') !~ /\S/
-  end
-end
-
-
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
@@ -49,7 +42,7 @@ module Mail
       end
       initialize_without_iso_2022_jp_encoding(value, charset)
     end
-    
+
     private
     def do_decode_with_iso_2022_jp_encoding
       if charset.to_s.downcase == 'iso-2022-jp'
