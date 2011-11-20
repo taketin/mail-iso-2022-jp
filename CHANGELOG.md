@@ -1,3 +1,7 @@
+## 1.0.6 (2011-11-20)
+
+* Bug fix: wrong logic in the b_value_encode method
+
 ## 1.0.5 (2011-11-20)
 
 * handle special characters such as `髙` or `﨑` correctly

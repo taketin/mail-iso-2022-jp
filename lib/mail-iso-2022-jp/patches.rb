@@ -59,7 +59,7 @@ module Mail
 
     def b_value_encode(string)
       string.split(' ').map do |s|
-        if s =~ /^\e/
+        if s =~ /\e/
           "=?ISO-2022-JP?B?#{Base64.encode64(s).gsub("\n", "")}?="
         else
           s
