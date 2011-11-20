@@ -1,3 +1,7 @@
+## 1.0.5 (2011-11-20)
+
+* handle special characters such as `髙` or `﨑` correctly
+
 ## 1.0.4 (2011-11-20)
 
 * now, work with Ruby 1.9.x

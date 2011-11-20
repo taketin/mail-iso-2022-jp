@@ -1,5 +1,7 @@
 # coding:utf-8
 
+require 'base64'
+
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
@@ -38,7 +40,10 @@ module Mail
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        value = NKF.nkf('--cp932 -Mj', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
+        value = NKF.nkf('--cp932 -j', value)
+        value.force_encoding('ascii-8bit') if RUBY_VERSION >= '1.9'
+        value = b_value_encode(value)
+        value.force_encoding('ascii-8bit') if RUBY_VERSION >= '1.9'
       end
       initialize_without_iso_2022_jp_encoding(value, charset)
     end
@@ -50,6 +55,16 @@ module Mail
       else
         do_decode_without_iso_2022_jp_encoding
       end
+    end
+
+    def b_value_encode(string)
+      string.split(' ').map do |s|
+        if s =~ /^\e/
+          "=?ISO-2022-JP?B?#{Base64.encode64(s).gsub("\n", "")}?="
+        else
+          s
+        end
+      end.join(" ")
     end
   end
   
