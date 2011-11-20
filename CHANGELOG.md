@@ -1,3 +1,7 @@
+## 1.0.9 (2011-11-20)
+
+* handle special characters such as `髙` or `﨑` correctly (Body)
+
 ## 1.0.8 (2011-11-20)
 
 * handle special characters such as `髙` or `﨑` correctly (Ruby 1.8.7)

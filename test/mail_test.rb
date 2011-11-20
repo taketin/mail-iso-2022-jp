@@ -95,13 +95,16 @@ class MailTest < ActiveSupport::TestCase
       body text
     end
     
-    if true #RUBY_VERSION >= '1.9'
-      assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
-      assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
-    else
-      # Ruby 1.8.7 ではうまく行かない。
-    end
+    assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
     assert_equal text, NKF.nkf('-w', mail.body.encoded)
+    
+    if RUBY_VERSION >= '1.9'
+      assert_equal NKF.nkf('--oc=CP50220 -j', text).force_encoding('ascii-8bit'),
+        mail.body.encoded.force_encoding('ascii-8bit')
+    else
+      assert_equal NKF.nkf('--oc=CP50220 -j', text), mail.body.encoded
+    end
   end
   
   test "should convert ibm special characters correctly" do
