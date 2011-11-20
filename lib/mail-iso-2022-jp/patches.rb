@@ -40,7 +40,7 @@ module Mail
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        value = NKF.nkf('--cp932 -j', value)
+        value = NKF.nkf('--cp51932 -j', value)
         value.force_encoding('ascii-8bit') if RUBY_VERSION >= '1.9'
         value = b_value_encode(value)
         value.force_encoding('ascii-8bit') if RUBY_VERSION >= '1.9'

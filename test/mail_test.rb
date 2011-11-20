@@ -96,6 +96,7 @@ class MailTest < ActiveSupport::TestCase
     end
     
     assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
     assert_equal text, NKF.nkf('-w', mail.body.encoded)
   end
 end
