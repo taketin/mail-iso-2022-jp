@@ -70,4 +70,35 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
+  
+  test "should handle numbers in circle correctly" do
+    text = "①②③④⑤⑥⑦⑧⑨"
+    
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text
+      body text
+    end
+    
+    assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal text, NKF.nkf('-w', mail.body.encoded)
+  end
+  
+  test "should handle 'hashigodaka' and 'tatsusaki' correctly" do
+    text = "髙﨑"
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text
+      body text
+    end
+
+    assert_equal text, NKF.nkf('-w', mail.body.encoded)
+    
+    # Currently, cannot handle these characters in mail headers.
+    #assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
+    #assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+  end
 end

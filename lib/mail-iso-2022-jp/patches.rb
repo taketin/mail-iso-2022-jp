@@ -1,8 +1,6 @@
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
-  #WAVE_DASH = [0xe3, 0x80, 0x9c].pack("C*")
-  #FULLWIDTH_TILDE = [0xef, 0xbd, 0x9e].pack("C*")
 
   class Message
     def process_body_raw_with_iso_2022_jp_encoding
