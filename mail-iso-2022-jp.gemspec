@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "mail-iso-2022-jp"
-  s.version     = "1.0.7"
+  s.version     = "1.0.8"
   s.authors     = ["Kohei MATSUSHITA", "Tsutomu KURODA"]
   s.email       = "hermes@oiax.jp"
   s.homepage    = "http://github.com/kuroda/mail-iso-2022-jp"
