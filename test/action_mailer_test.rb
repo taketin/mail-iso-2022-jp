@@ -1,6 +1,6 @@
 #coding:utf-8
+$:.unshift File.dirname(__FILE__)
 require 'test_helper'
-
 require 'action_mailer'
 require File.dirname(__FILE__) + '/../init'
 
