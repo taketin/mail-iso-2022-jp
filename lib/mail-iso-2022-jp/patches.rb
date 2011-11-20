@@ -26,7 +26,7 @@ module Mail
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
+        value = NKF.nkf('--cp932 -Mj', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
       end
       initialize_without_iso_2022_jp_encoding(value, charset)
     end
