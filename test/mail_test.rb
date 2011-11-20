@@ -107,6 +107,20 @@ class MailTest < ActiveSupport::TestCase
     end
   end
   
+  test "should handle hankaku kana correctly" do
+    text = "ｱｲｳｴｵ"
+    
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text
+      body text
+    end
+    
+    assert_equal "Subject: #{text}\r\n", NKF.nkf('-mxw', mail[:subject].encoded)
+    assert_equal text, NKF.nkf('-xw', mail.body.encoded)
+  end
+  
   test "should convert ibm special characters correctly" do
     text = "髙﨑"
     j = NKF.nkf('--oc=CP50220 -j', text)
@@ -123,11 +137,11 @@ class MailTest < ActiveSupport::TestCase
     assert_equal wave_dash, NKF.nkf("-w", j)
   end
   
-  test "should convert hankaku kana to zenkaku" do
+  test "should keep hankaku kana as is" do
     text = "ｱｲｳｴｵ"
-    j = NKF.nkf('--oc=CP50220 -j', text)
+    j = NKF.nkf('--oc=CP50220 -x -j', text)
     e = Base64.encode64(j).gsub("\n", "")
-    assert_equal "GyRCJSIlJCUmJSglKhsoQg==", e
-    assert_equal "アイウエオ", NKF.nkf("-w", j)
+    assert_equal "GyhJMTIzNDUbKEI=", e
+    assert_equal "ｱｲｳｴｵ", NKF.nkf("-xw", j)
   end
 end
