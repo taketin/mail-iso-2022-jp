@@ -1,3 +1,4 @@
+# coding:utf-8
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
