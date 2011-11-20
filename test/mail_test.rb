@@ -95,12 +95,36 @@ class MailTest < ActiveSupport::TestCase
       body text
     end
     
-    if RUBY_VERSION >= '1.9'
+    if true #RUBY_VERSION >= '1.9'
       assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
       assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
     else
       # Ruby 1.8.7 ではうまく行かない。
     end
     assert_equal text, NKF.nkf('-w', mail.body.encoded)
+  end
+  
+  test "should convert ibm special characters correctly" do
+    text = "髙﨑"
+    j = NKF.nkf('--oc=CP50220 -j', text)
+    assert_equal "GyRCfGJ5dRsoQg==", Base64.encode64(j).gsub("\n", "")
+  end
+  
+  test "should convert wave dash to zenkaku" do
+    fullwidth_tilde = "～"
+    assert_equal [0xef, 0xbd, 0x9e], fullwidth_tilde.unpack("C*")
+    wave_dash = "〜"
+    assert_equal [0xe3, 0x80, 0x9c], wave_dash.unpack("C*")
+
+    j = NKF.nkf('--oc=CP50220 -j', fullwidth_tilde)
+    assert_equal wave_dash, NKF.nkf("-w", j)
+  end
+  
+  test "should convert hankaku kana to zenkaku" do
+    text = "ｱｲｳｴｵ"
+    j = NKF.nkf('--oc=CP50220 -j', text)
+    e = Base64.encode64(j).gsub("\n", "")
+    assert_equal "GyRCJSIlJCUmJSglKhsoQg==", e
+    assert_equal "アイウエオ", NKF.nkf("-w", j)
   end
 end

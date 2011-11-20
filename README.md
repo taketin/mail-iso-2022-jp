@@ -106,9 +106,9 @@ or run this command:
 Remarks
 -------
 
-* Special characters such as `髙` or `﨑` can't be handled correctly when they are found in the mail headers. But OK with Ruby 1.9. 
-
-* `髙` や `﨑` といった特殊文字がメールヘッダにある場合は、正しく扱えません（調査中）。ただし、Ruby 1.9ではOKです、
+* `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
+* 全角ダッシュ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
+* 半角カタカナは全角カタカナに変換されます。
 
 
 References
@@ -118,7 +118,7 @@ References
 * http://d.hatena.ne.jp/rudeboyjet/20100605/p1
 * http://d.hatena.ne.jp/hichiriki/20101026#1288107706
 * http://d.hatena.ne.jp/deeeki/20111003/rails3_mailer_iso2022jp
-
+* http://d.hatena.ne.jp/tmtms/20090611/1244724573
 
 License
 -------
