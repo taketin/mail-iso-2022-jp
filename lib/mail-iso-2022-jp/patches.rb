@@ -1,4 +1,12 @@
 # coding:utf-8
+
+class String
+  def blank?
+    self.force_encoding('ascii-8bit') !~ /\S/
+  end
+end
+
+
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
@@ -13,6 +21,17 @@ module Mail
     end
     alias_method :process_body_raw_without_iso_2022_jp_encoding, :process_body_raw
     alias_method :process_body_raw, :process_body_raw_with_iso_2022_jp_encoding
+  end
+  
+  class Body
+    def initialize_with_iso_2022_jp_encoding(string = '')
+      if string.respond_to?(:encoding) && string.encoding.to_s == 'ISO-2022-JP'
+        string.force_encoding('ascii-8bit')
+      end
+      initialize_without_iso_2022_jp_encoding(string)
+    end
+    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
+    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
   end
   
   module FieldWithIso2022JpEncoding
