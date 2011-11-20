@@ -101,17 +101,4 @@ class MailTest < ActiveSupport::TestCase
     #assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
     #assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
   end
-  
-  test "temp" do
-    s = NKF.nkf('--cp932 -j', 'ああ')
-    def s.blank?
-      true
-    end
-    
-    t = s[0, 1]
-    
-    if t.blank?
-      puts 'true'
-    end
-  end
 end

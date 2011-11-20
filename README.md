@@ -40,7 +40,7 @@ Requirements
 
 ### Ruby ###
 
-* 1.8.7
+* 1.8.7, 1.9.x
 
 ### Gems ###
 
@@ -106,13 +106,20 @@ or run this command:
 Remarks
 -------
 
-* Does not work with Ruby 1.9.x, currently.
 * Wave dashes (U+301C) are replaced with fullwidth tildes (U+FF5E) before converted to iso-2022-jp.
 * Special characters such as `髙` or `﨑` can't be handled correctly when they are found in the mail headers. This is a TODO. 
 
-* 現在のところ、Ruby 1.9.x では動作しません。
 * 波ダッシュ(U+301C)は、iso-2022-jpへの変換前に全角チルダ(U+FF5E)で置き換えられます。
 * `髙` や `﨑` といった特殊文字がメールヘッダにある場合は、正しく扱えません。これはTODO項目です。
+
+
+References
+----------
+
+* http://d.hatena.ne.jp/fujisan3776/20110628/1309255427
+* http://d.hatena.ne.jp/rudeboyjet/20100605/p1
+* http://d.hatena.ne.jp/hichiriki/20101026#1288107706
+* http://d.hatena.ne.jp/deeeki/20111003/rails3_mailer_iso2022jp
 
 
 License

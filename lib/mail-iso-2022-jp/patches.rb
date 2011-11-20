@@ -26,7 +26,7 @@ module Mail
   class Body
     def initialize_with_iso_2022_jp_encoding(string = '')
       if string.respond_to?(:encoding) && string.encoding.to_s == 'ISO-2022-JP'
-        string.force_encoding('ascii-8bit')
+        string.force_encoding('US-ASCII')
       end
       initialize_without_iso_2022_jp_encoding(string)
     end
@@ -41,7 +41,7 @@ module Mail
       base.send :alias_method, :do_decode_without_iso_2022_jp_encoding, :do_decode
       base.send :alias_method, :do_decode, :do_decode_with_iso_2022_jp_encoding
     end
-    
+
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
@@ -59,9 +59,18 @@ module Mail
       end
     end
   end
-
+  
   class SubjectField < UnstructuredField
     include FieldWithIso2022JpEncoding
+    
+    private
+    def encode(value)
+      if charset.to_s.downcase == 'iso-2022-jp'
+        value
+      else
+        super(value)
+      end
+    end
   end
 
   class FromField < StructuredField

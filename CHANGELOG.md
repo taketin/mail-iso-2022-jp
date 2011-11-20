@@ -1,3 +1,7 @@
+## 1.0.4 (2011-11-20)
+
+* now, work with Ruby 1.9.x
+
 ## 1.0.3 (2011-11-20)
 
 * handle fullwidth tildes and wave dashes correctly
