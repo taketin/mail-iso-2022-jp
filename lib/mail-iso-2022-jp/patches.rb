@@ -1,8 +1,14 @@
 module Mail
+  WAVE_DASH = "〜" # U+301C
+  FULLWIDTH_TILDE = "～" # U+FF5E
+  #WAVE_DASH = [0xe3, 0x80, 0x9c].pack("C*")
+  #FULLWIDTH_TILDE = [0xef, 0xbd, 0x9e].pack("C*")
+
   class Message
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
-        @body_raw = NKF.nkf('-j', @body_raw)
+        @body_raw.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+        @body_raw = NKF.nkf('--cp932 -j', @body_raw)
       end
       process_body_raw_without_iso_2022_jp_encoding
     end
@@ -20,6 +26,7 @@ module Mail
     
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
+        value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         value = NKF.nkf('--cp932 -M', NKF.nkf('--cp932 -j', value)).gsub("\n", '').strip
       end
       initialize_without_iso_2022_jp_encoding(value, charset)

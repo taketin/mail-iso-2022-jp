@@ -49,4 +49,25 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "Subject: =?UTF-8?Q?=E6=97=A5=E6=9C=AC=E8=AA=9E=E4=BB=B6=E5=90=8D?=\r\n", mail[:subject].encoded
     assert_equal NKF::UTF8, NKF.guess(mail.body.encoded)
   end
+  
+  # The thunderbird handle them like this. 
+  test "should handle fullwidth tildes and wave dashes correctly" do
+    fullwidth_tilde = "～"
+    assert_equal [0xef, 0xbd, 0x9e], fullwidth_tilde.unpack("C*")
+    wave_dash = "〜"
+    assert_equal [0xe3, 0x80, 0x9c], wave_dash.unpack("C*")
+    
+    text1 = "#{fullwidth_tilde}#{wave_dash}"
+    text2 = "#{wave_dash}#{wave_dash}"
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text1
+      body text1
+    end
+    
+    assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal text2, NKF.nkf('-w', mail.body.encoded)
+  end
 end
