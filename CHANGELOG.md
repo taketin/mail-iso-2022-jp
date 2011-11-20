@@ -1,3 +1,7 @@
+## 1.0.3 (2011-11-20)
+
+* handle fullwidth tildes and wave dashes correctly
+
 ## 1.0.2 (2011-11-19)
 
 * convert `Sender`, `Reply-To`, `Resent-From`, `Resent-Sender`, `Resent-To`, `Resent-Cc` header values
