@@ -106,10 +106,8 @@ or run this command:
 Remarks
 -------
 
-* Wave dashes (U+301C) are replaced with fullwidth tildes (U+FF5E) before converted to iso-2022-jp.
 * Special characters such as `髙` or `﨑` can't be handled correctly when they are found in the mail headers. But OK with Ruby 1.9. 
 
-* 波ダッシュ(U+301C)は、iso-2022-jpへの変換前に全角チルダ(U+FF5E)で置き換えられます。
 * `髙` や `﨑` といった特殊文字がメールヘッダにある場合は、正しく扱えません（調査中）。ただし、Ruby 1.9ではOKです、
 
 
