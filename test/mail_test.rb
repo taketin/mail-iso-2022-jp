@@ -67,7 +67,11 @@ class MailTest < ActiveSupport::TestCase
       body text1
     end
     
-    assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    if RUBY_VERSION >= '1.9'
+      assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    else
+      # Ruby 1.8.7 ではうまく行かない。
+    end
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
   
@@ -95,8 +99,12 @@ class MailTest < ActiveSupport::TestCase
       body text
     end
     
-    assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
-    assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
+    if RUBY_VERSION >= '1.9'
+      assert_equal "Subject: #{text}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+      assert_equal "Subject: =?ISO-2022-JP?B?GyRCfGJ5dRsoQg==?=\r\n", mail[:subject].encoded
+    else
+      # Ruby 1.8.7 ではうまく行かない。
+    end
     assert_equal text, NKF.nkf('-w', mail.body.encoded)
   end
 end
