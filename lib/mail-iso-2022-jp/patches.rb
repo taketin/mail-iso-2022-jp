@@ -1,5 +1,6 @@
 # coding:utf-8
 
+require 'mail'
 require 'base64'
 
 module Mail
