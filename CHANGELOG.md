@@ -1,3 +1,7 @@
+## 1.1.1 (2011-11-21)
+
+* support Rails 3.0.x
+
 ## 1.1.0 (2011-11-20)
 
 * keep hankaku kana as is
