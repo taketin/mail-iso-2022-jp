@@ -14,10 +14,10 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc 'Generate documentation for the mail-iso-2022-jp library.'
-RDoc::Task.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'MailIso2022Jp'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
