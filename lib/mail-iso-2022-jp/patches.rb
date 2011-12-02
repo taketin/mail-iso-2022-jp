@@ -12,7 +12,11 @@ module Mail
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
         @body_raw.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
+        if RUBY_VERSION >= '1.9'
+          @body_raw = @body_raw.encode(@charset)
+        else
+          @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
+        end
       end
       process_body_raw_without_iso_2022_jp_encoding
     end
@@ -42,12 +46,13 @@ module Mail
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        value = NKF.nkf(NKF_OPTIONS, value)
         if RUBY_VERSION >= '1.9'
+          value = value.encode(charset)
           value.force_encoding('ascii-8bit')
           value = b_value_encode(value)
           value.force_encoding('ascii-8bit')
         else
+          value = NKF.nkf(NKF_OPTIONS, value)
           value = b_value_encode(value)
         end
       end
