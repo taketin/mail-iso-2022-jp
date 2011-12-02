@@ -11,7 +11,7 @@ module Mail
   class Message
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
-        @body_raw.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+        @body_raw = @body_raw.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         if RUBY_VERSION >= '1.9'
           @body_raw = @body_raw.encode(@charset)
         else
@@ -45,7 +45,7 @@ module Mail
 
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
-        value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+        value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         if RUBY_VERSION >= '1.9'
           value = value.encode(charset)
           value.force_encoding('ascii-8bit')
