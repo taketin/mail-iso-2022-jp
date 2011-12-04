@@ -9,10 +9,8 @@ module Mail
   NKF_OPTIONS = "--oc=CP50220 -xj"
   if RUBY_VERSION >= '1.9'
     ENCODE = {'iso-2022-jp' => Encoding::CP50221}
-    FORCE_ENCODE = {'iso-2022-jp' => Encoding::ISO_2022_JP}
     def self.encoding_to_charset(str, charset)
-      str.encode(ENCODE[charset.to_s.downcase] || charset).
-        force_encoding(FORCE_ENCODE[charset.to_s.downcase] || charset)
+      str.encode(ENCODE[charset.to_s.downcase] || charset).force_encoding(charset)
     end
   end
 
