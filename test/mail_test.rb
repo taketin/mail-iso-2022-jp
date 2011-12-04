@@ -121,6 +121,18 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text, NKF.nkf('-xw', mail.body.encoded)
   end
   
+  test "should handle frozen texts correctly" do
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject "text".freeze
+      body "text".freeze
+    end
+    
+    assert_equal "Subject: text\r\n", NKF.nkf('-mxw', mail[:subject].encoded)
+    assert_equal "text", NKF.nkf('-xw', mail.body.encoded)
+  end
+  
   test "should convert ibm special characters correctly" do
     text = "髙﨑"
     j = NKF.nkf('--oc=CP50220 -j', text)
