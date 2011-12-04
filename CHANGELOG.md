@@ -1,3 +1,7 @@
+## 1.1.2 (2011-12-04)
+
+* handle frozen texts correctly
+
 ## 1.1.1 (2011-11-21)
 
 * support Rails 3.0.x
