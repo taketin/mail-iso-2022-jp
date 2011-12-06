@@ -22,7 +22,7 @@ Feature
 
     If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `Sender`, `To`, `Cc`,
     `Reply-To`, `Subject`, `Resent-From`, `Resent-Sender`, `Resent-To` and `Resent-Cc` headers
-    and the text of body will be automatically converted to `ISO-2022-JP` by `NKF` module.
+    and the text of body will be automatically converted to `ISO-2022-JP`.
     
     When the `charset` header has other values, this patch has no effect.
 
@@ -30,7 +30,7 @@ Feature
 
     chasetヘッダの値が `ISO-2022-JP` である場合、差出人(From)、Sender、宛先(To)、Cc、Reply-To、件名(Subject)、
     Resent-From、Resent-Sender、Resent-To、Resent-Cc の各ヘッダの値および本文(Body)が
-    `NKF` モジュールによって自動的に `ISO-2022-JP` に変換されます。
+    自動的に `ISO-2022-JP` に変換されます。
     
     charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチには何の効果もありません。
 
@@ -45,6 +45,10 @@ Requirements
 ### Gems ###
 
 * `mail` 2.2.5 or higher
+
+### Ruby on Rails (Optional) ###
+
+* 3.0 or higher
 
 
 Getting Start
@@ -107,7 +111,7 @@ Remarks
 -------
 
 * `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
-* 全角ダッシュ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
+* 全角チルダ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
 * 半角カタカナはそのまま維持されます。
 
 
