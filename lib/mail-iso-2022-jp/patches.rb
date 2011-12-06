@@ -51,15 +51,10 @@ module Mail
 
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
-        value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        if RUBY_VERSION >= '1.9'
-          value = Mail.encoding_to_charset(value, charset)
-          value.force_encoding('ascii-8bit')
-          value = b_value_encode(value)
-          value.force_encoding('ascii-8bit')
+        if value.kind_of?(Array)
+          value = value.map { |e| encode_with_iso_2022_jp(e) }
         else
-          value = NKF.nkf(NKF_OPTIONS, value)
-          value = b_value_encode(value)
+          value = encode_with_iso_2022_jp(value)
         end
       end
       initialize_without_iso_2022_jp_encoding(value, charset)
@@ -71,6 +66,19 @@ module Mail
         value
       else
         do_decode_without_iso_2022_jp_encoding
+      end
+    end
+    
+    def encode_with_iso_2022_jp(value)
+      value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+      if RUBY_VERSION >= '1.9'
+        value = Mail.encoding_to_charset(value, charset)
+        value.force_encoding('ascii-8bit')
+        value = b_value_encode(value)
+        value.force_encoding('ascii-8bit')
+      else
+        value = NKF.nkf(NKF_OPTIONS, value)
+        b_value_encode(value)
       end
     end
 

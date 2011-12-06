@@ -50,6 +50,19 @@ class MailTest < ActiveSupport::TestCase
     assert_equal NKF::UTF8, NKF.guess(mail.body.encoded)
   end
   
+  test "should handle array correctly" do
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from [ '山田太郎 <taro@example.com>', '山田次郎 <jiro@example.com>' ]
+      to [ '佐藤花子 <hanako@example.com>', '佐藤好子 <yoshiko@example.com>' ]
+      cc [ 'X事務局 <info@example.com>',  '事務局長 <boss@example.com>' ]
+      subject '日本語件名'
+      body '日本語本文'
+    end
+    assert_equal "From: =?ISO-2022-JP?B?GyRCOzNFREJATzobKEI=?= <taro@example.com>, \r\n =?ISO-2022-JP?B?GyRCOzNFRDwhTzobKEI=?= <jiro@example.com>\r\n", mail[:from].encoded
+    assert_equal "To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <hanako@example.com>, \r\n =?ISO-2022-JP?B?GyRCOjRGIzklO1IbKEI=?= <yoshiko@example.com>\r\n", mail[:to].encoded
+    assert_equal "Cc: =?ISO-2022-JP?B?WBskQjt2TDM2SRsoQg==?= <info@example.com>, \r\n =?ISO-2022-JP?B?GyRCO3ZMMzZJRDkbKEI=?= <boss@example.com>\r\n", mail[:cc].encoded
+  end
+
   # The thunderbird handle them like this. 
   test "should handle fullwidth tildes and wave dashes correctly" do
     fullwidth_tilde = "～"
