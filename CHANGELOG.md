@@ -1,3 +1,7 @@
+## 1.1.3 (2011-12-06)
+
+* handle array values correctly
+
 ## 1.1.2 (2011-12-04)
 
 * handle frozen texts correctly
