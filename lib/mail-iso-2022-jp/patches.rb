@@ -6,12 +6,13 @@ require 'base64'
 module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
-  NKF_OPTIONS = "--oc=CP50220 -xj"
   if RUBY_VERSION >= '1.9'
     ENCODE = {'iso-2022-jp' => Encoding::CP50221}
     def self.encoding_to_charset(str, charset)
       str.encode(ENCODE[charset.to_s.downcase] || charset).force_encoding(charset)
     end
+  else
+    NKF_OPTIONS = "--oc=CP50220 -xj"
   end
 
   class Message
