@@ -53,9 +53,9 @@ module Mail
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
         if value.kind_of?(Array)
-          value = value.map { |e| encode_with_iso_2022_jp(e) }
+          value = value.map { |e| encode_with_iso_2022_jp(e, charset) }
         else
-          value = encode_with_iso_2022_jp(value)
+          value = encode_with_iso_2022_jp(value, charset)
         end
       end
       initialize_without_iso_2022_jp_encoding(value, charset)
@@ -70,7 +70,7 @@ module Mail
       end
     end
     
-    def encode_with_iso_2022_jp(value)
+    def encode_with_iso_2022_jp(value, charset)
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
       if RUBY_VERSION >= '1.9'
         value = Mail.encoding_to_charset(value, charset)
