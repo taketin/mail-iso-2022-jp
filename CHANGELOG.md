@@ -1,4 +1,8 @@
-## 1.1.3 (2011-12-06)
+## 1.1.4 (2011-12-07)
+
+* Bug fix: correct the signature of the `encode_with_iso_2022_jp` method
+
+## 1.1.3 (2011-12-06) -- yanked
 
 * handle array values correctly
 
