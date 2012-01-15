@@ -1,13 +1,21 @@
 source :rubygems
 
-gem "mail", ">= 2.2.5"
+using_edge_mail_gem = ENV['USING_EDGE_MAIL_GEM']
+
+if using_edge_mail_gem == "true"
+  gem "mail", ">= 2.4.0"
+else
+  gem "mail", ">= 2.2.5"
+end
 
 rails_version = ENV['MAIL_ISO_2022_JP_RAILS_VERSION']
 
 group :development, :test do
   gem "rake"
   gem "bundler"
-  if rails_version == "edge"
+  if using_edge_mail_gem == "true"
+    gem "activesupport"
+  elsif rails_version == "edge"
     gem "actionmailer", :git => "git://github.com/rails/rails.git"
   elsif rails_version && rails_version.strip != ""
     gem "actionmailer", rails_version

@@ -2,6 +2,9 @@
 
 set -e
 
+USING_EDGE_MAIL_GEM=true bundle update mail
+USING_EDGE_MAIL_GEM=true bundle exec ruby -Itest test/mail_test.rb
+
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
   source "$HOME/.rvm/scripts/rvm"
 elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
