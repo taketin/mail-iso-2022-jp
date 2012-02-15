@@ -105,6 +105,13 @@ module Mail
         super(value)
       end
     end
+    
+    def encode_crlf(value)
+      if RUBY_VERSION >= '1.9' && charset.to_s.downcase == 'iso-2022-jp'
+        value.force_encoding('ascii-8bit')
+      end
+      super(value)
+    end
   end
 
   class FromField < StructuredField
