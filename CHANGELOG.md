@@ -1,3 +1,7 @@
+## 1.1.5 (unreleased)
+
+ * support mail 2.4.1
+
 ## 1.1.4 (2011-12-07)
 
 * Bug fix: correct the signature of the `encode_with_iso_2022_jp` method
