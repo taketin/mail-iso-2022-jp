@@ -3,7 +3,7 @@ source :rubygems
 using_edge_mail_gem = ENV['USING_EDGE_MAIL_GEM']
 
 if using_edge_mail_gem == "true"
-  gem "mail", ">= 2.4.0"
+  gem "mail", ">= 2.4.1"
 else
   gem "mail", ">= 2.2.5"
 end
