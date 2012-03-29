@@ -1,3 +1,9 @@
+## 1.1.6 (2012-03-29)
+
+ * support mail 2.4.4
+ * move some methods from SubjectField to UnstructuredField in order to fix
+   encoding problems that are reported to occur on Windows environment
+
 ## 1.1.5 (2012-02-16)
 
  * support mail 2.4.1
