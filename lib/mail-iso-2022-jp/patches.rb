@@ -92,10 +92,6 @@ module Mail
         end
       end.join(" ")
     end
-  end
-  
-  class SubjectField < UnstructuredField
-    include FieldWithIso2022JpEncoding
     
     private
     def encode(value)
@@ -112,6 +108,10 @@ module Mail
       end
       super(value)
     end
+  end
+  
+  class SubjectField < UnstructuredField
+    include FieldWithIso2022JpEncoding
   end
 
   class FromField < StructuredField
