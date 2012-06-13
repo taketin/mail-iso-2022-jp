@@ -1,3 +1,7 @@
+## 1.1.7 (2012-06-13)
+
+ * rescue Encoding::CompatibilityError exception
+
 ## 1.1.6 (2012-03-29)
 
  * support mail 2.4.4
