@@ -30,7 +30,17 @@ module Mail
     alias_method :process_body_raw_without_iso_2022_jp_encoding, :process_body_raw
     alias_method :process_body_raw, :process_body_raw_with_iso_2022_jp_encoding
   end
-  
+
+  class Header
+    def encoded
+      buffer = ''
+      fields.each do |field|
+        buffer << field.encoded rescue Encoding::CompatibilityError;
+      end
+      buffer
+    end
+  end
+
   class Body
     def initialize_with_iso_2022_jp_encoding(string = '')
       if string.respond_to?(:encoding) && string.encoding.to_s == 'ISO-2022-JP'

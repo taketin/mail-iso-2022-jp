@@ -35,6 +35,11 @@ class ActionMailerTest < ActiveSupport::TestCase
     assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?=\r\n", mail[:subject].encoded
     assert_equal NKF::JIS, NKF.guess(mail.body.encoded)
   end
+
+  test "should handle a received mail correctly" do
+    eml = File.open(File.dirname(__FILE__) + '/data/sample0.eml').read
+    Iso2022jpMailer.receive(eml)
+  end
 end
 
 class Iso2022jpMailer < ActionMailer::Base
@@ -52,6 +57,9 @@ class Iso2022jpMailer < ActionMailer::Base
     mail(:to => [ '佐藤花子 <hanako@example.com>', '佐藤好子 <yoshiko@example.com>' ], :subject => '日本語件名') do |format|
       format.text { render :inline => '日本語本文' }
     end
+  end
+
+  def receive(eml)
   end
 end
 
