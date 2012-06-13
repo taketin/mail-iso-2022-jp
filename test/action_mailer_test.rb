@@ -38,7 +38,9 @@ class ActionMailerTest < ActiveSupport::TestCase
 
   test "should handle a received mail correctly" do
     eml = File.open(File.dirname(__FILE__) + '/data/sample0.eml').read
-    Iso2022jpMailer.receive(eml)
+    mail = Iso2022jpMailer.receive(eml)
+    assert_equal NKF::JIS, NKF.guess(mail.body.decoded)
+    assert_equal "投稿テスト\n--\nyamada@example.jp", NKF.nkf("-Jw", mail.body.decoded)
   end
 end
 
@@ -60,6 +62,7 @@ class Iso2022jpMailer < ActionMailer::Base
   end
 
   def receive(eml)
+    eml
   end
 end
 
