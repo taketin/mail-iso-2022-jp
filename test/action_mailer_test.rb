@@ -25,7 +25,7 @@ class ActionMailerTest < ActiveSupport::TestCase
     assert_equal "Subject: =?UTF-8?Q?=E6=97=A5=E6=9C=AC=E8=AA=9E=E4=BB=B6=E5=90=8D?=\r\n", mail[:subject].encoded
     assert_equal NKF::UTF8, NKF.guess(mail.body.encoded)
   end
-  
+
   test "should handle array correctly" do
     mail = Iso2022jpMailer.notice2
     assert_equal NKF::JIS, NKF.guess(mail.subject)

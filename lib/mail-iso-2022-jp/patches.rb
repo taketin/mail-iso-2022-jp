@@ -51,7 +51,7 @@ module Mail
     alias_method :initialize_without_iso_2022_jp_encoding, :initialize
     alias_method :initialize, :initialize_with_iso_2022_jp_encoding
   end
-  
+
   module FieldWithIso2022JpEncoding
     def self.included(base)
       base.send :alias_method, :initialize_without_iso_2022_jp_encoding, :initialize
@@ -79,7 +79,7 @@ module Mail
         do_decode_without_iso_2022_jp_encoding
       end
     end
-    
+
     def encode_with_iso_2022_jp(value, charset)
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
       if RUBY_VERSION >= '1.9'
@@ -102,7 +102,7 @@ module Mail
         end
       end.join(" ")
     end
-    
+
     private
     def encode(value)
       if charset.to_s.downcase == 'iso-2022-jp'
@@ -111,7 +111,7 @@ module Mail
         super(value)
       end
     end
-    
+
     def encode_crlf(value)
       if RUBY_VERSION >= '1.9' && charset.to_s.downcase == 'iso-2022-jp'
         value.force_encoding('ascii-8bit')
@@ -119,7 +119,7 @@ module Mail
       super(value)
     end
   end
-  
+
   class SubjectField < UnstructuredField
     include FieldWithIso2022JpEncoding
   end
