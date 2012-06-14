@@ -64,6 +64,19 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "Cc: =?ISO-2022-JP?B?WBskQjt2TDM2SRsoQg==?= <info@example.com>, \r\n =?ISO-2022-JP?B?GyRCO3ZMMzZJRDkbKEI=?= <boss@example.com>\r\n", mail[:cc].encoded
   end
 
+  if RUBY_VERSION >= '1.9'
+    test "should raise exeception if the encoding of subject is not UTF-8" do
+      assert_raise Mail::InvalidEncodingError do
+        Mail.new(:charset => 'ISO-2022-JP') do
+          from [ '山田太郎 <taro@example.com>' ]
+          to [ '佐藤花子 <hanako@example.com>' ]
+          subject NKF.nkf("-Wj", '日本語件名')
+          body '日本語本文'
+        end
+      end
+    end
+  end
+
   # The thunderbird handle them like this.
   test "should handle fullwidth tildes and wave dashes correctly" do
     fullwidth_tilde = "～"

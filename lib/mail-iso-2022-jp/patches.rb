@@ -2,6 +2,7 @@
 
 require 'mail'
 require 'base64'
+require 'nkf'
 
 module Mail
   WAVE_DASH = "〜" # U+301C
@@ -14,6 +15,8 @@ module Mail
   else
     NKF_OPTIONS = "--oc=CP50220 -xj"
   end
+
+  class InvalidEncodingError < StandardError; end
 
   class Message
     def process_body_raw_with_iso_2022_jp_encoding
@@ -47,6 +50,22 @@ module Mail
         string.force_encoding('US-ASCII')
       end
       initialize_without_iso_2022_jp_encoding(string)
+    end
+    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
+    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
+  end
+
+  class Field
+    def initialize_with_iso_2022_jp_encoding(name, value = nil, charset = 'utf-8')
+      if charset == 'ISO-2022-JP' && value.kind_of?(String)
+        if RUBY_VERSION >= '1.9'
+          unless [ 'UTF-8', 'US-ASCII' ].include?(value.encoding.to_s)
+            raise ::Mail::InvalidEncodingError.new(
+              "The '#{name}' field is not encoded in UTF-8 nor in US-ASCII but in #{value.encoding}")
+          end
+        end
+      end
+      initialize_without_iso_2022_jp_encoding(name, value, charset)
     end
     alias_method :initialize_without_iso_2022_jp_encoding, :initialize
     alias_method :initialize, :initialize_with_iso_2022_jp_encoding
