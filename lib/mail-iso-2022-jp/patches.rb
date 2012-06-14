@@ -19,6 +19,20 @@ module Mail
   class InvalidEncodingError < StandardError; end
 
   class Message
+    def body_with_iso_2022_jp_encoding=(value)
+      if @charset.to_s.downcase == 'iso-2022-jp'
+        if RUBY_VERSION >= '1.9'
+          if value.respond_to?(:encoding) && value.encoding.to_s != 'UTF-8'
+            raise ::Mail::InvalidEncodingError.new(
+              "The mail body is not encoded in UTF-8 but in #{value.encoding}")
+          end
+        end
+      end
+      self.body_without_iso_2022_jp_encoding = value
+    end
+    alias_method :body_without_iso_2022_jp_encoding=, :body=
+    alias_method :body=, :body_with_iso_2022_jp_encoding=
+
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
         @body_raw = @body_raw.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)

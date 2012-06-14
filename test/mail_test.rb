@@ -75,6 +75,17 @@ class MailTest < ActiveSupport::TestCase
         end
       end
     end
+
+    test "should raise exeception if the encoding of mail body is not UTF-8" do
+      assert_raise Mail::InvalidEncodingError do
+        Mail.new(:charset => 'ISO-2022-JP') do
+          from [ '山田太郎 <taro@example.com>' ]
+          to [ '佐藤花子 <hanako@example.com>' ]
+          subject '日本語件名'
+          body NKF.nkf("-Wj", '日本語本文')
+        end
+      end
+    end
   end
 
   # The thunderbird handle them like this.
