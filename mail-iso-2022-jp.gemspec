@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Kohei MATSUSHITA", "Tsutomu KURODA"]
   s.email       = "hermes@oiax.jp"
   s.homepage    = "https://github.com/kuroda/mail-iso-2022-jp"
-  s.description = "A patch that provides 'mail' gem with iso-2022-jp conversion capability."
-  s.summary     = "A patch that provides 'mail' gem with iso-2022-jp conversion capability."
+  s.description = "A set of patches for mikel's mail gem. With this, you can easily send and receive mails with ISO-2022-JP enconding (so-called 'JIS-CODE')."
+  s.summary     = "A set of patches that provides 'mail' gem with iso-2022-jp conversion capability."
 
   s.platform = Gem::Platform::RUBY
 

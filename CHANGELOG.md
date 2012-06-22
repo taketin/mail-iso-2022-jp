@@ -1,3 +1,7 @@
+## 1.1.8 (2012-06-22)
+
+ * encode the whole subject instead of splitting it with white spaces (#3)
+
 ## 1.1.7 (2012-06-13)
 
  * rescue Encoding::CompatibilityError exception
