@@ -1,3 +1,7 @@
+## 1.2.0 (2012-08-04)
+
+ * replace unconvertable characters with question marks (#5)
+
 ## 1.1.8 (2012-06-22)
 
  * encode the whole subject instead of splitting it with white spaces (#3)
