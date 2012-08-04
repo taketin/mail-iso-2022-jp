@@ -10,10 +10,10 @@ module Mail
   if RUBY_VERSION >= '1.9'
     ENCODE = {'iso-2022-jp' => Encoding::CP50221}
     def self.encoding_to_charset(str, charset)
-      str.encode(ENCODE[charset.to_s.downcase] || charset).force_encoding(charset)
+      str.encode(ENCODE[charset.to_s.downcase] || charset, :undef => :replace).force_encoding(charset)
     end
   else
-    NKF_OPTIONS = "--oc=CP50220 -xj"
+    NKF_OPTIONS = "--oc=CP50220 -xjW --fb-subchar"
   end
 
   class InvalidEncodingError < StandardError; end

@@ -194,4 +194,18 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "GyhJMTIzNDUbKEI=", e
     assert_equal "ｱｲｳｴｵ", NKF.nkf("-xw", j)
   end
+
+  test "should replace unconvertable characters with question marks" do
+    text = "(\xe2\x88\xb0\xe2\x88\xb1\xe2\x88\xb2)"
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text
+      body text
+    end
+
+    assert_equal "Subject: (???)\r\n", NKF.nkf('-mJwx', mail[:subject].encoded)
+    assert_equal "(???)", NKF.nkf('-Jwx', mail.body.encoded)
+  end
 end
