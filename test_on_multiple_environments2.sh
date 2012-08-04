@@ -10,7 +10,7 @@ USING_EDGE_MAIL_GEM=true bundle exec ruby -Itest test/mail_test.rb
 function run {
   gem list --local bundler | grep bundler || gem install bundler --no-ri --no-rdoc
 
-  for version in 3.0.14 3.1.6 3.2.6
+  for version in 3.0.16 3.1.7 3.2.8.rc2
   do
     echo "Running bundle exec rspec spec against rails $version..."
     MAIL_ISO_2022_JP_RAILS_VERSION=$version bundle update mail rails
