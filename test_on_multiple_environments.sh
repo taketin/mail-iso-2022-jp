@@ -16,7 +16,7 @@ fi
 function run {
   gem list --local bundler | grep bundler || gem install bundler --no-ri --no-rdoc
 
-  for version in 3.0.16 3.1.7 3.2.8.rc2
+  for version in 3.0.17 3.1.8 3.2.8
   do
     echo "Running bundle exec rspec spec against rails $version..."
     MAIL_ISO_2022_JP_RAILS_VERSION=$version bundle update mail rails
