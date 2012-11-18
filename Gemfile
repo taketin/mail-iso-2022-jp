@@ -1,4 +1,4 @@
-source :rubygems
+source "https://rubygems.org"
 
 using_edge_mail_gem = ENV['USING_EDGE_MAIL_GEM']
 
