@@ -46,6 +46,8 @@ Requirements
 
 * `mail` 2.2.5 or higher, but lower than or equal to 2.4.4
 
+    Note: The latest `mail` 2.5.0 is not yet supported.
+
 ### Ruby on Rails (Optional) ###
 
 * 3.0 or higher
