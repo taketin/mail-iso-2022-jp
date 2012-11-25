@@ -1,3 +1,7 @@
+## 1.2.1 (2012-11-25)
+
+ * support `mail` 2.5.2
+
 ## 1.2.0 (2012-08-04)
 
  * replace unconvertable characters with question marks (#5)
