@@ -44,9 +44,7 @@ Requirements
 
 ### Gems ###
 
-* `mail` 2.2.6 or higher, but lower than or equal to 2.4.4
-
-    Note: The latest `mail` 2.5.0 is not yet supported.
+* `mail` 2.2.6 or higher, but lower than or equal to 2.5.2
 
 ### Ruby on Rails (Optional) ###
 
