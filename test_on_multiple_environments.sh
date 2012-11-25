@@ -4,7 +4,7 @@
 
 set -e
 
-for version in 2.2.6 2.2.19 2.3.3 2.4.4
+for version in 2.2.6 2.2.19 2.3.3 2.5.2
 do
   MAIL_GEM_VERSION=$version bundle update mail
   MAIL_GEM_VERSION=$version bundle exec ruby -Itest test/mail_test.rb
@@ -24,7 +24,7 @@ function run {
 export RBENV_VERSION=1.8.7-p358
 run
 
-export RBENV_VERSION=1.9.3-p286
+export RBENV_VERSION=1.9.3-p327
 run
 
 echo 'Success!'

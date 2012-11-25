@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.platform = Gem::Platform::RUBY
 
-  s.add_dependency "mail", ">= 2.2.6", "<= 2.4.4"
+  s.add_dependency "mail", ">= 2.2.6", "<= 2.5.2"
   s.add_development_dependency "actionmailer", ">= 3.0.0"
   s.add_development_dependency "rdoc", ">= 3.12"
 

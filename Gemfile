@@ -3,7 +3,7 @@ source "https://rubygems.org"
 if mail_gem_version = ENV['MAIL_GEM_VERSION']
   gem "mail", "= #{mail_gem_version}"
 else
-  gem "mail", "< 2.5.0"
+  gem "mail", "<= 2.5.2"
 end
 
 rails_version = ENV['MAIL_ISO_2022_JP_RAILS_VERSION']
