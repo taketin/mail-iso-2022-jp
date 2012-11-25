@@ -4,13 +4,13 @@
 
 set -e
 
-for version in 2.2.6 2.2.19 2.3.3 2.5.2
-do
-  MAIL_GEM_VERSION=$version bundle update mail
-  MAIL_GEM_VERSION=$version bundle exec ruby -Itest test/mail_test.rb
-done
-
 function run {
+  for version in 2.2.6 2.4.4 2.5.2
+  do
+    MAIL_GEM_VERSION=$version bundle update mail
+    MAIL_GEM_VERSION=$version bundle exec ruby -Itest test/mail_test.rb
+  done
+
   gem list --local bundler | grep bundler || gem install bundler --no-ri --no-rdoc
 
   for version in 3.0.17 3.1.8 3.2.9
