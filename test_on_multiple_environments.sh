@@ -27,7 +27,7 @@ run
 export RBENV_VERSION=1.9.3-p327
 run
 
-export RBENV_VERSION=2.0.0-preview1
+export RBENV_VERSION=2.0.0-preview2
 run
 
 echo 'Success!'

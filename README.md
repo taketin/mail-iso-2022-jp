@@ -40,7 +40,7 @@ Requirements
 
 ### Ruby ###
 
-* 1.8.7, 1.9.x, 2.0.0-preview1
+* 1.8.7, 1.9.x, 2.0.0-preview2
 
 ### Gems ###
 
