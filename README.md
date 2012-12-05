@@ -44,7 +44,7 @@ Requirements
 
 ### Gems ###
 
-* `mail` 2.2.6 or higher, but lower than or equal to 2.5.2
+* `mail` 2.2.6 or higher, but lower than or equal to 2.5.3
 
 ### Ruby on Rails (Optional) ###
 
