@@ -6,8 +6,8 @@ Overview
 
 * (en)
 
-	`mail-iso-2022-jp` is a patch for [mikel/mail](https://github.com/mikel/mail).
-	With this patch, you can easily send mails with `ISO-2022-JP` enconding (so-called "JIS-CODE").
+    `mail-iso-2022-jp` is a patch for [mikel/mail](https://github.com/mikel/mail).
+    With this patch, you can easily send mails with `ISO-2022-JP` enconding (so-called "JIS-CODE").
 
 * (ja)
 
