@@ -110,11 +110,19 @@ or run this command:
 Remarks
 -------
 
-* `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
-* 全角チルダ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
-* 半角カタカナはそのまま維持されます。
-* 変換できない文字は疑問符(?)で置換されます。
-* マルチパートメールのテキストパートもiso-2022-jpでエンコードされます。
+* (en)
+    * NEC special characters like `①` and IBM extended characters like `髙`, `﨑` are allowed in the subject, recipient names and mail body. 
+    * Fullwidth tildes (U+FF5E) are translated into wave dashes (U+301C).
+    * Half-width (Hankaku) katakanas are maintained intact.
+    * Characters that cannot be translated into iso-2022-jp encoding are substituted with question marks (`?`).
+    * The text part of multipart mail is also encoded with iso-2022-jp.
+
+* (ja)
+    * `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
+    * 全角チルダ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
+    * 半角カタカナはそのまま維持されます。
+    * 変換できない文字は疑問符(`?`)で置換されます。
+    * マルチパートメールのテキストパートもiso-2022-jpでエンコードされます。
 
 References
 ----------
