@@ -46,6 +46,15 @@ module Mail
     end
     alias_method :process_body_raw_without_iso_2022_jp_encoding, :process_body_raw
     alias_method :process_body_raw, :process_body_raw_with_iso_2022_jp_encoding
+
+    def text_part_with_iso_2022_jp_encoding=(msg = nil)
+      if @charset.to_s.downcase == 'iso-2022-jp' && msg && msg.charset.nil?
+        msg.charset = @charset
+      end
+      self.text_part_without_iso_2022_jp_encoding = msg
+    end
+    alias_method :text_part_without_iso_2022_jp_encoding=, :text_part=
+    alias_method :text_part=, :text_part_with_iso_2022_jp_encoding=
   end
 
   class Header

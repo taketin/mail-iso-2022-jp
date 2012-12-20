@@ -208,4 +208,46 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "Subject: (???)\r\n", NKF.nkf('-mJwx', mail[:subject].encoded)
     assert_equal "(???)", NKF.nkf('-Jwx', mail.body.encoded)
   end
+
+  test "should encode the text part of multipart mail" do
+    text = 'こんにちは、世界！'
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject 'Greetings'
+    end
+
+    mail.html_part = Mail::Part.new do
+      content_type "text/html; charset=UTF-8"
+      body "<p>#{text}</p>"
+    end
+
+    mail.text_part = Mail::Part.new do
+      body text
+    end
+
+    assert_equal NKF::JIS, NKF.guess(mail.text_part.body.encoded)
+  end
+
+  test "should not encode the text part of multipart mail if the charset is set" do
+    text = 'こんにちは、世界！'
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject 'Greetings'
+    end
+
+    mail.html_part = Mail::Part.new do
+      content_type "text/html; charset=UTF-8"
+      body "<p>#{text}</p>"
+    end
+
+    mail.text_part = Mail::Part.new(:charset => 'UTF-8') do
+      body text
+    end
+
+    assert_equal NKF::UTF8, NKF.guess(mail.text_part.body.encoded)
+  end
 end
