@@ -88,7 +88,7 @@ class MailTest < ActiveSupport::TestCase
     end
   end
 
-  # The thunderbird handle them like this.
+  # The thunderbird handles them like this.
   test "should handle fullwidth tildes and wave dashes correctly" do
     fullwidth_tilde = "～"
     assert_equal [0xef, 0xbd, 0x9e], fullwidth_tilde.unpack("C*")
