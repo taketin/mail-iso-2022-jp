@@ -5,22 +5,6 @@ require 'base64'
 require 'nkf'
 
 module Mail
-  class Field
-    def initialize_with_iso_2022_jp_encoding(name, value = nil, charset = 'utf-8')
-      if charset == 'ISO-2022-JP' && value.kind_of?(String)
-        if RUBY_VERSION >= '1.9'
-          unless [ 'UTF-8', 'US-ASCII' ].include?(value.encoding.to_s)
-            raise ::Mail::InvalidEncodingError.new(
-              "The '#{name}' field is not encoded in UTF-8 nor in US-ASCII but in #{value.encoding}")
-          end
-        end
-      end
-      initialize_without_iso_2022_jp_encoding(name, value, charset)
-    end
-    alias_method :initialize_without_iso_2022_jp_encoding, :initialize
-    alias_method :initialize, :initialize_with_iso_2022_jp_encoding
-  end
-
   module FieldWithIso2022JpEncoding
     def self.included(base)
       base.send :alias_method, :initialize_without_iso_2022_jp_encoding, :initialize
