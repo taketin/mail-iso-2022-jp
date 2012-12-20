@@ -1,3 +1,7 @@
+## 2.0.0 (unreleased)
+
+ * Divide `patches.rb` into separate files.
+
 ## 1.3.0 (2012-12-20)
 
  * set charset of the text part of multipart mail (#7)
