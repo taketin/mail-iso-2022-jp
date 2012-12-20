@@ -11,4 +11,4 @@ end
 
 require 'mail-iso-2022-jp/header'
 require 'mail-iso-2022-jp/body'
-require 'mail-iso-2022-jp/patches'
+require 'mail-iso-2022-jp/fields'

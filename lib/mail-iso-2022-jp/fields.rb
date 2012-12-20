@@ -1,8 +1,6 @@
 # coding:utf-8
 
 require 'mail'
-require 'base64'
-require 'nkf'
 
 module Mail
   class SubjectField < UnstructuredField
