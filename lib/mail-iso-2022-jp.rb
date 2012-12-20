@@ -11,4 +11,5 @@ else
 end
 
 require 'mail-iso-2022-jp/header'
+require 'mail-iso-2022-jp/subject_field'
 require 'mail-iso-2022-jp/fields'
