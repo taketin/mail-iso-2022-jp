@@ -22,20 +22,23 @@ Feature
 
 * (en)
 
-    If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `Sender`, `To`, `Cc`,
+    * If you set the `charset` header to `ISO-2022-JP`, the values of `From`, `Sender`, `To`, `Cc`,
     `Reply-To`, `Subject`, `Resent-From`, `Resent-Sender`, `Resent-To` and `Resent-Cc` headers
     and the text of body will be automatically converted to `ISO-2022-JP`.
-    
-    When the `charset` header has other values, this patch has no effect.
+
+    * The text part of multipart mail is also encoded with iso-2022-jp.
+
+    * When the `charset` header has other values, this patch has no effect.
 
 * (ja)
 
-    chasetヘッダの値が `ISO-2022-JP` である場合、差出人(From)、Sender、宛先(To)、Cc、Reply-To、件名(Subject)、
+    * chasetヘッダの値が `ISO-2022-JP` である場合、差出人(From)、Sender、宛先(To)、Cc、Reply-To、件名(Subject)、
     Resent-From、Resent-Sender、Resent-To、Resent-Cc の各ヘッダの値および本文(Body)が
     自動的に `ISO-2022-JP` に変換されます。
-    
-    charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチには何の効果もありません。
 
+    * マルチパートメールのテキストパートもiso-2022-jpでエンコードされます。
+
+    * charsetヘッダの値が `ISO-2022-JP` でない場合、このパッチには何の効果もありません。
 
 Requirements
 ------------
@@ -113,18 +116,17 @@ Remarks
 -------
 
 * (en)
-    * NEC special characters like `①` and IBM extended characters like `髙`, `﨑` are allowed in the subject, recipient names and mail body. 
+    * NEC special characters like `①` and IBM extended characters like `髙`, `﨑`
+    are allowed in the subject, recipient names and mail body.
     * Fullwidth tildes (U+FF5E) are translated into wave dashes (U+301C).
     * Half-width (Hankaku) katakanas are maintained intact.
     * Characters that cannot be translated into iso-2022-jp encoding are substituted with question marks (`?`).
-    * The text part of multipart mail is also encoded with iso-2022-jp.
 
 * (ja)
     * `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
     * 全角チルダ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
     * 半角カタカナはそのまま維持されます。
     * 変換できない文字は疑問符(`?`)で置換されます。
-    * マルチパートメールのテキストパートもiso-2022-jpでエンコードされます。
 
 References
 ----------
