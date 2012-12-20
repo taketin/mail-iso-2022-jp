@@ -1,5 +1,7 @@
+mail-iso-2022-jp
+================
+
 A patch that provides 'mail' gem with iso-2022-jp conversion capability.
-========================================================================
 
 Overview
 --------
