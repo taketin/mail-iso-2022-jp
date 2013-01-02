@@ -1,3 +1,5 @@
+require 'mail-iso-2022-jp/character_names'
+
 if RUBY_VERSION >= '1.9'
   require 'mail-iso-2022-jp/mail'
   require 'mail-iso-2022-jp/message'
