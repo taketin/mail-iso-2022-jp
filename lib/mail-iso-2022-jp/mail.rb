@@ -7,6 +7,4 @@ module Mail
   def self.encoding_to_charset(str, charset)
     str.encode(ENCODE[charset.to_s.downcase] || charset, :undef => :replace).force_encoding(charset)
   end
-
-  class InvalidEncodingError < StandardError; end
 end
