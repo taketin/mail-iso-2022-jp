@@ -26,7 +26,7 @@ module Mail
 
     private
     def encode_with_iso_2022_jp(value, charset)
-      value = preprocess(value)
+      value = Mail::Preprocessor.process(value)
       value = Mail.encoding_to_charset(value, charset)
       value.force_encoding('ascii-8bit')
       value = b_value_encode(value)

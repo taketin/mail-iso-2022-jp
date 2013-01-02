@@ -33,7 +33,7 @@ module Mail
     end
 
     def encode_with_iso_2022_jp(value)
-      value = preprocess(value)
+      value = Mail::Preprocessor.process(value)
       value = NKF.nkf(NKF_OPTIONS, value)
       b_value_encode(value)
     end
