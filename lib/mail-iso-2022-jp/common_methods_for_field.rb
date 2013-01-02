@@ -34,6 +34,7 @@ module Mail
     def preprocess(value)
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
       value = value.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
+      value = value.to_s.gsub(/#{EM_DASH}/, HORIZONTAL_BAR)
       value
     end
   end

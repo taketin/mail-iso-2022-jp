@@ -5,4 +5,6 @@ module Mail
   FULLWIDTH_TILDE = [0xff5e].pack("U")
   MINUS_SIGN = [0x2212].pack("U")
   FULLWIDTH_HYPHEN_MINUS = [0xff0d].pack("U")
+  EM_DASH = [0x2014].pack("U")
+  HORIZONTAL_BAR = [0x2015].pack("U")
 end

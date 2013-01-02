@@ -127,6 +127,25 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
+  test "should handle em dash (U+2014) and horizontal bar (U+2015) correctly" do
+    em_dash = [0x2014].pack("U")
+    horizontal_bar = [0x2015].pack("U")
+
+    text1 = "#{em_dash}#{horizontal_bar}"
+    text2 = "#{em_dash}#{em_dash}"
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text1
+      body text1
+    end
+
+    assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "\e$B!=!=\e(B", mail.body.encoded
+    assert_equal text2, NKF.nkf('-w', mail.body.encoded)
+  end
+
   test "should handle numbers in circle correctly" do
     text = "①②③④⑤⑥⑦⑧⑨"
 

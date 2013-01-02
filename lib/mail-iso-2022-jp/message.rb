@@ -12,6 +12,7 @@ module Mail
             "The mail body is not encoded in UTF-8 but in #{value.encoding}")
         end
         value = value.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
+        value = value.gsub(/#{EM_DASH}/, HORIZONTAL_BAR)
       end
       self.body_without_iso_2022_jp_encoding = value
     end
