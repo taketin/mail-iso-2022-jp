@@ -118,13 +118,15 @@ Remarks
 * (en)
     * NEC special characters like `①` and IBM extended characters like `髙`, `﨑`
     are allowed in the subject, recipient names and mail body.
-    * Fullwidth tildes (U+FF5E) are translated into wave dashes (U+301C).
-    * Half-width (Hankaku) katakanas are maintained intact.
+    * Fullwidth tilde (U+FF5E) and wave dashe (U+301C) are converted to the fullwidth tilde (2141).
+    * Fullwidth hyphen minus (U+FF0D) and minus sign (U+2212) are converted to the fullwidth minus (215D).
+    * Halfwidth (Hankaku) katakanas are maintained intact.
     * Characters that cannot be translated into iso-2022-jp encoding are substituted with question marks (`?`).
 
 * (ja)
     * `①` などのNEC特殊文字や `髙` や `﨑` といったIBM拡張文字を件名、宛先、本文などに含めることができます。
-    * 全角チルダ(U+FF5E)は波ダッシュ(U+301C)に変換されます。
+    * 全角チルダ(U+FF5E)と波ダッシュ(U+301C)は、全角チルダ(2141)に変換されます。
+    * 全角ハイフンマイナス(U+ff0D)とマイナス記号(U+2212)は、全角マイナス(215D)に変換されます。
     * 半角カタカナはそのまま維持されます。
     * 変換できない文字は疑問符(`?`)で置換されます。
 
