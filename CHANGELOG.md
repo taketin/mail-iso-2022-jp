@@ -1,6 +1,7 @@
 ## 2.0.0 (unreleased)
 
  * Divide `patches.rb` into separate files.
+ * Handle minus sign (U+2212) and fullwidth hypen minus (U+ff0d) correctly.
 
 ## 1.3.0 (2012-12-20)
 
