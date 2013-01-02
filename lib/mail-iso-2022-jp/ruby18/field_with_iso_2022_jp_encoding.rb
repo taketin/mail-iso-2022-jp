@@ -5,6 +5,7 @@ require 'nkf'
 module Mail
   module FieldWithIso2022JpEncoding
     def self.included(base)
+      base.send :include, Mail::CommonMethodsForField
       base.send :alias_method, :initialize_without_iso_2022_jp_encoding, :initialize
       base.send :alias_method, :initialize, :initialize_with_iso_2022_jp_encoding
       base.send :alias_method, :do_decode_without_iso_2022_jp_encoding, :do_decode
@@ -32,33 +33,9 @@ module Mail
     end
 
     def encode_with_iso_2022_jp(value)
-      value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-      value = value.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
+      value = preprocess(value)
       value = NKF.nkf(NKF_OPTIONS, value)
       b_value_encode(value)
-    end
-
-    def b_value_encode(string)
-      string.split(' ').map do |s|
-        if s =~ /\e/
-          encode64(s)
-        else
-          s
-        end
-      end.join(" ")
-    end
-
-    private
-    def encode(value)
-      if charset.to_s.downcase == 'iso-2022-jp'
-        value
-      else
-        super(value)
-      end
-    end
-
-    def encode64(string)
-      "=?ISO-2022-JP?B?#{Base64.encode64(string).gsub("\n", "")}?="
     end
   end
 end

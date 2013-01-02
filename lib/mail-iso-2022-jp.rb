@@ -1,5 +1,6 @@
 require 'mail-iso-2022-jp/character_names'
 require 'mail-iso-2022-jp/invalid_encoding_error'
+require 'mail-iso-2022-jp/common_methods_for_field'
 
 if RUBY_VERSION >= '1.9'
   require 'mail-iso-2022-jp/mail'
