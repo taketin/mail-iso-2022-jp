@@ -165,6 +165,24 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
+  # FULLWIDTH REVERSE SOLIDUS (0xff3c) ＼
+  # FULLWIDTH CENT SIGN       (0xffe0) ￠
+  # FULLWIDTH POUND SIGN      (0xffe1) ￡
+  # FULLWIDTH NOT SIGN        (0xffe2) ￢
+  test "should handle some special characters correctly" do
+    special_characters = [0xff3c, 0xffe0, 0xffe1, 0xffe2].pack("U")
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject special_characters
+      body special_characters
+    end
+
+    assert_equal "Subject: #{special_characters}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal special_characters, NKF.nkf('-w', mail.body.encoded)
+  end
+
   test "should handle numbers in circle correctly" do
     text = "①②③④⑤⑥⑦⑧⑨"
 
