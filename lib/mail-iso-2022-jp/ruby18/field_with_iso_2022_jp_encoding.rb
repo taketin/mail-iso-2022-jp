@@ -35,6 +35,7 @@ module Mail
 
     def encode_with_iso_2022_jp(value)
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+      value = value.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
       value = NKF.nkf(NKF_OPTIONS, value)
       b_value_encode(value)
     end

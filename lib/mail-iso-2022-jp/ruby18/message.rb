@@ -15,6 +15,7 @@ module Mail
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
         @body_raw = @body_raw.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+        @body_raw = @body_raw.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
         @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
       end
       process_body_raw_without_iso_2022_jp_encoding

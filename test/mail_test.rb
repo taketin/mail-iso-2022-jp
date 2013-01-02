@@ -109,6 +109,23 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
+  test "should handle minus sign (U+2212) and fullwidth hypen minus (U+ff0d) correctly" do
+    minus_sign = [0x2212].pack("U")
+    fullwidth_hyphen_minus = [0xff0d].pack("U")
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject minus_sign + fullwidth_hyphen_minus
+      body minus_sign + fullwidth_hyphen_minus
+    end
+
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCIV0hXRsoQg==?=\r\n", mail[:subject].encoded
+    assert_equal "Subject: #{minus_sign + minus_sign}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "\e$B!]!]\e(B", mail.body.encoded
+    assert_equal minus_sign + minus_sign, NKF.nkf('-w', mail.body.encoded)
+  end
+
   test "should handle numbers in circle correctly" do
     text = "①②③④⑤⑥⑦⑧⑨"
 

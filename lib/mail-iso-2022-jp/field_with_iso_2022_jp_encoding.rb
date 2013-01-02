@@ -34,6 +34,7 @@ module Mail
 
     def encode_with_iso_2022_jp(value, charset)
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+      value = value.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
       value = Mail.encoding_to_charset(value, charset)
       value.force_encoding('ascii-8bit')
       value = b_value_encode(value)

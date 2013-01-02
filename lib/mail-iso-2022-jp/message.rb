@@ -11,6 +11,7 @@ module Mail
           raise ::Mail::InvalidEncodingError.new(
             "The mail body is not encoded in UTF-8 but in #{value.encoding}")
         end
+        value = value.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
       end
       self.body_without_iso_2022_jp_encoding = value
     end
