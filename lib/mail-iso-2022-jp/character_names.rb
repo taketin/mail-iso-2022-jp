@@ -7,4 +7,6 @@ module Mail
   FULLWIDTH_HYPHEN_MINUS = [0xff0d].pack("U")
   EM_DASH = [0x2014].pack("U")
   HORIZONTAL_BAR = [0x2015].pack("U")
+  DOUBLE_VERTICAL_LINE = [0x2016].pack("U")
+  PARALLEL_TO = [0x2225].pack("U")
 end

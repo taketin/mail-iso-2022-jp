@@ -13,6 +13,7 @@ module Mail
         end
         value = value.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
         value = value.gsub(/#{EM_DASH}/, HORIZONTAL_BAR)
+        value = value.gsub(/#{DOUBLE_VERTICAL_LINE}/, PARALLEL_TO)
       end
       self.body_without_iso_2022_jp_encoding = value
     end

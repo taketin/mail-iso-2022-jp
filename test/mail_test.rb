@@ -146,6 +146,25 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
+  test "should double vertical line (U+2016) and parallel to (U+2225) correctly" do
+    double_vertical_line = [0x2016].pack("U")
+    parallel_to = [0x2225].pack("U")
+
+    text1 = "#{double_vertical_line}#{parallel_to}"
+    text2 = "#{double_vertical_line}#{double_vertical_line}"
+
+    mail = Mail.new(:charset => 'ISO-2022-JP') do
+      from 'taro@example.com'
+      to 'hanako@example.com'
+      subject text1
+      body text1
+    end
+
+    assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "\e$B!B!B\e(B", mail.body.encoded
+    assert_equal text2, NKF.nkf('-w', mail.body.encoded)
+  end
+
   test "should handle numbers in circle correctly" do
     text = "①②③④⑤⑥⑦⑧⑨"
 

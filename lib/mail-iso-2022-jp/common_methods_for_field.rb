@@ -35,6 +35,7 @@ module Mail
       value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
       value = value.to_s.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
       value = value.to_s.gsub(/#{EM_DASH}/, HORIZONTAL_BAR)
+      value = value.to_s.gsub(/#{DOUBLE_VERTICAL_LINE}/, PARALLEL_TO)
       value
     end
   end
