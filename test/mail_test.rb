@@ -146,7 +146,7 @@ class MailTest < ActiveSupport::TestCase
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
-  test "should double vertical line (U+2016) and parallel to (U+2225) correctly" do
+  test "should handle double vertical line (U+2016) and parallel to (U+2225) correctly" do
     double_vertical_line = [0x2016].pack("U")
     parallel_to = [0x2225].pack("U")
 
