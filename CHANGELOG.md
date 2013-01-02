@@ -1,9 +1,9 @@
 ## 2.0.0 (unreleased)
 
  * Divide `patches.rb` into separate files.
- * Convert minus sign (U+2212) and fullwidth hypen minus (U+ff0d) to 215d.
- * Convert em dash (U+2014) and horizontal bar (U+2015) to 213d.
- * Convert double vertical line (U+2016) and parallel to (U+2225) to 2142.
+ * Convert MINUS SIGN (U+2212) and FULLWIDTH HYPHEN MINUS (U+ff0d) to 0x215d.
+ * Convert EM DASH (U+2014) and HORIZONTAL BAR (U+2015) to 0x213d.
+ * Convert DOUBLE VERTICAL LINE (U+2016) and PARALLEL TO (U+2225) to 0x2142.
 
 ## 1.3.0 (2012-12-20)
 
