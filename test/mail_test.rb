@@ -88,14 +88,11 @@ class MailTest < ActiveSupport::TestCase
     end
   end
 
-  # The thunderbird handles them like this.
-  test "should handle fullwidth tildes and wave dashes correctly" do
-    fullwidth_tilde = "～"
-    assert_equal [0xef, 0xbd, 0x9e], fullwidth_tilde.unpack("C*")
-    wave_dash = "〜"
-    assert_equal [0xe3, 0x80, 0x9c], wave_dash.unpack("C*")
+  test "should handle wave dash (U+301C) and fullwidth tilde (U+FF5E) correctly" do
+    wave_dash = [0x301c].pack("U")
+    fullwidth_tilde = [0xff5e].pack("U")
 
-    text1 = "#{fullwidth_tilde}#{wave_dash}"
+    text1 = "#{wave_dash}#{fullwidth_tilde}"
     text2 = "#{wave_dash}#{wave_dash}"
 
     mail = Mail.new(:charset => 'ISO-2022-JP') do
@@ -106,6 +103,7 @@ class MailTest < ActiveSupport::TestCase
     end
 
     assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "\e$B!A!A\e(B", mail.body.encoded
     assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
@@ -113,17 +111,20 @@ class MailTest < ActiveSupport::TestCase
     minus_sign = [0x2212].pack("U")
     fullwidth_hyphen_minus = [0xff0d].pack("U")
 
+    text1 = "#{minus_sign}#{fullwidth_hyphen_minus}"
+    text2 = "#{minus_sign}#{minus_sign}"
+
     mail = Mail.new(:charset => 'ISO-2022-JP') do
       from 'taro@example.com'
       to 'hanako@example.com'
-      subject minus_sign + fullwidth_hyphen_minus
-      body minus_sign + fullwidth_hyphen_minus
+      subject text1
+      body text1
     end
 
     assert_equal "Subject: =?ISO-2022-JP?B?GyRCIV0hXRsoQg==?=\r\n", mail[:subject].encoded
-    assert_equal "Subject: #{minus_sign + minus_sign}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
+    assert_equal "Subject: #{text2}\r\n", NKF.nkf('-mw', mail[:subject].encoded)
     assert_equal "\e$B!]!]\e(B", mail.body.encoded
-    assert_equal minus_sign + minus_sign, NKF.nkf('-w', mail.body.encoded)
+    assert_equal text2, NKF.nkf('-w', mail.body.encoded)
   end
 
   test "should handle numbers in circle correctly" do
