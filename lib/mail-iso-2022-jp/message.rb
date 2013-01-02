@@ -11,6 +11,7 @@ module Mail
           raise ::Mail::InvalidEncodingError.new(
             "The mail body is not encoded in UTF-8 but in #{value.encoding}")
         end
+        value = value.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         value = value.gsub(/#{MINUS_SIGN}/, FULLWIDTH_HYPHEN_MINUS)
         value = value.gsub(/#{EM_DASH}/, HORIZONTAL_BAR)
         value = value.gsub(/#{DOUBLE_VERTICAL_LINE}/, PARALLEL_TO)
@@ -22,7 +23,6 @@ module Mail
 
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
-        @body_raw = @body_raw.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         @body_raw = Mail.encoding_to_charset(@body_raw, @charset)
       end
       process_body_raw_without_iso_2022_jp_encoding
