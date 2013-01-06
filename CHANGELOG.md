@@ -1,4 +1,4 @@
-## 2.0.0 (unreleased)
+## 2.0.0 (2012-01-06)
 
  * Divide `patches.rb` into separate files.
  * Convert MINUS SIGN (U+2212) and FULLWIDTH HYPHEN MINUS (U+ff0d) to 0x215d.
